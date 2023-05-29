@@ -27,8 +27,8 @@ const SignUpForm = () => {
     const { register, handleSubmit, setValue, formState: { errors } } = useForm({
         defaultValues: {
             userName: '',
-            email: "",
-            password: "",
+            email: '',
+            password: '',
         },
         mode: 'onChange',
         resolver: yupResolver(validationSchema),
@@ -68,7 +68,7 @@ const SignUpForm = () => {
                 size='small'
                 margin="dense"
                 label="Username"
-                variant="outlined"
+                variant="standard"
                 {...register('userName')}
                 error={!!errors.userName}
                 helperText={errors.userName?.message || ' '}
@@ -79,7 +79,7 @@ const SignUpForm = () => {
                 size='small'
                 margin="dense"
                 label="Email"
-                variant="outlined"
+                variant="standard"
                 {...register('email')}
                 error={!!errors.email}
                 helperText={errors.email?.message || ' '}
@@ -91,7 +91,7 @@ const SignUpForm = () => {
                 margin="dense"
                 label="Password"
                 type="password"
-                variant="outlined"
+                variant="standard"
                 {...register('password')}
                 error={!!errors.password}
                 helperText={errors.password?.message || ' '}

@@ -9,8 +9,7 @@ import { useNavigate } from 'react-router-dom';
 
 const validationSchema = yup.object({
     email: yup.string()
-        .required('Email is required.')
-        .email('Email must be valid.'),
+        .required('Email is required.'),
     password: yup.string()
         .required('Password is required.'),
 }).required();
@@ -23,8 +22,8 @@ const SignInForm = () => {
 
     const { register, handleSubmit, setValue, formState: { errors } } = useForm({
         defaultValues: {
-            email: "",
-            password: "",
+            email: '',
+            password: '',
         },
         mode: 'onChange',
         resolver: yupResolver(validationSchema),
@@ -63,7 +62,7 @@ const SignInForm = () => {
                 size='small'
                 margin="dense"
                 label="Email"
-                variant="outlined"
+                variant="standard"
                 {...register('email')}
                 error={!!errors.email}
                 helperText={errors.email?.message || ' '}
@@ -75,7 +74,7 @@ const SignInForm = () => {
                 margin="dense"
                 label="Password"
                 type="password"
-                variant="outlined"
+                variant="standard"
                 {...register('password')}
                 error={!!errors.password}
                 helperText={errors.password?.message || ' '}

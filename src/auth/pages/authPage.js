@@ -4,17 +4,17 @@ import { Box, Button } from "@mui/material";
 import { useState } from "react";
 
 
+const style = {
+    position: 'relative',
+    minHeight: '92vh',
+    display: 'flex',
+    justifyContent: 'center',
+    alignItems: 'center'
+};
+
 const AuthPage = () => {
 
     const [hasAccount, setHasAccount] = useState(true);
-
-    const style = {
-        position: 'relative',
-        minHeight: '100vh',
-        display: 'flex',
-        justifyContent: 'center',
-        alignItems: 'center'
-    };
 
     const showForm = hasAccount ? <SignInForm /> : <SignUpForm />
     const showLink = hasAccount
