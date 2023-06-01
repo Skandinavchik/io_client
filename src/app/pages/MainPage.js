@@ -6,7 +6,7 @@ import checkCookie from "../../utils/checkCookie";
 
 const style = {
     position: 'relative',
-    minHeight: '92vh',
+    height: '92vh',
     display: 'flex',
     justifyContent: 'center',
     alignItems: 'center'

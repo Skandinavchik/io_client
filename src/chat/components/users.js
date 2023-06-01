@@ -9,33 +9,39 @@ const Users = () => {
     const [users, setUsers] = useState([]);
 
     const getUsers = async (url) => {
-        const res = await ky.get(url, {
-            credentials: 'include',
-        }).json();
+        try {
+            const res = await ky.get(url, {
+                credentials: 'include',
+            }).json();
 
-        return res;
+            return res;
+
+        } catch (error) {
+            console.log(error.message);
+        }
     };
 
     useEffect(() => {
         getUsers('http://localhost:8000/api/v1.0/users')
             .then(data => setUsers(data.data.users))
             .catch(err => console.log(err.message));
-
     }, []);
 
     const renderUsers = users.map(item => {
         return (
-            <Box
-                key={item.userName}
-                sx={{
-                    pt: '10px',
-                    pb: '10px',
-                    display: 'flex',
-                    justifyContent: 'flex-start',
-                    alignItems: 'center',
-                    gap: '10px',
-                    cursor: 'pointer',
-                }}>
+            <Box key={item.userName} sx={{
+                pl: '20px',
+                pt: '10px',
+                pb: '10px',
+                display: 'flex',
+                justifyContent: 'flex-start',
+                alignItems: 'center',
+                gap: '10px',
+                cursor: 'pointer',
+                '&:hover': {
+                    background: 'rgba(25, 118, 210, 0.04)',
+                }
+            }}>
                 <Avatar alt={item.userName} src="#" />
                 <div>{item.userName}</div>
             </Box>
@@ -44,7 +50,7 @@ const Users = () => {
     })
 
     return (
-        <Box sx={{ pl: '20px' }}>
+        <Box sx={{}}>
             {users.length === 0 ? null : renderUsers}
         </Box>
     );

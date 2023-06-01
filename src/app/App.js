@@ -4,6 +4,7 @@ import MainPage from './pages/MainPage';
 import AuthPage from '../auth/pages/authPage';
 
 
+
 const App = () => {
 
     const location = useLocation();
