@@ -19,7 +19,7 @@ const SearchUsers = () => {
     const onSearch = async (data, event) => {
         event.preventDefault();
         const { search } = data;
-        dispatch(handleQueryString(search));
+        dispatch(handleQueryString(search.trim()));
     };
 
     const clearSearchField = () => {
@@ -30,7 +30,7 @@ const SearchUsers = () => {
         ? <IconButton onClick={clearSearchField}>
             <CloseOutlinedIcon color="primary" />
         </IconButton>
-        : <IconButton onClick={clearSearchField}>
+        : <IconButton>
             <SearchOutlinedIcon color="primary" />
         </IconButton>
 

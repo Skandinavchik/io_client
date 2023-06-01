@@ -11,15 +11,11 @@ const Users = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        if (queryString !== '') {
-            dispatch(fetchUsers(`http://localhost:8000/api/v1.0/users?name=${queryString}`));
-        } else {
-            dispatch(fetchUsers(`http://localhost:8000/api/v1.0/users`));
-        }
-    }, [dispatch, queryString]);
+        dispatch(fetchUsers('http://localhost:8000/api/v1.0/users'));
+    }, [dispatch]);
 
     if (usersLoadingStatus === 'error') {
-        return <h5>Error</h5>
+        return 'Error';
     }
 
     const renderUsers = users.map(item => {
@@ -40,13 +36,12 @@ const Users = () => {
                 <Avatar alt={item.userName} src="#" />
                 <div>{item.userName}</div>
             </Box>
-
         );
     });
 
     return (
         <Box sx={{}}>
-            {users.length === 0 ? null : renderUsers}
+            {users.length ? renderUsers : null }
         </Box>
     );
 };
