@@ -1,31 +1,26 @@
 import { Box, Avatar } from "@mui/material";
-import ky from "ky";
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { fetchUsers } from '../slices/usersSlice';
+import { useDispatch, useSelector } from 'react-redux';
 
 
 
 const Users = () => {
 
-    const [users, setUsers] = useState([]);
-
-    const getUsers = async (url) => {
-        try {
-            const res = await ky.get(url, {
-                credentials: 'include',
-            }).json();
-
-            return res;
-
-        } catch (error) {
-            console.log(error.message);
-        }
-    };
+    const { users, usersLoadingStatus, queryString } = useSelector(state => state.users);
+    const dispatch = useDispatch();
 
     useEffect(() => {
-        getUsers('http://localhost:8000/api/v1.0/users')
-            .then(data => setUsers(data.data.users))
-            .catch(err => console.log(err.message));
-    }, []);
+        if (queryString !== '') {
+            dispatch(fetchUsers(`http://localhost:8000/api/v1.0/users?name=${queryString}`));
+        } else {
+            dispatch(fetchUsers(`http://localhost:8000/api/v1.0/users`));
+        }
+    }, [dispatch, queryString]);
+
+    if (usersLoadingStatus === 'error') {
+        return <h5>Error</h5>
+    }
 
     const renderUsers = users.map(item => {
         return (
@@ -47,7 +42,7 @@ const Users = () => {
             </Box>
 
         );
-    })
+    });
 
     return (
         <Box sx={{}}>

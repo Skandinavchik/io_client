@@ -2,8 +2,12 @@ import { Box, InputBase, IconButton } from "@mui/material";
 import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { useForm } from 'react-hook-form';
+import { useDispatch } from "react-redux";
+import { handleQueryString } from "../slices/usersSlice";
 
 const SearchUsers = () => {
+
+    const dispatch = useDispatch();
 
     const { register, handleSubmit, resetField, formState: { isDirty } } = useForm({
         defaultValues: {
@@ -15,7 +19,7 @@ const SearchUsers = () => {
     const onSearch = async (data, event) => {
         event.preventDefault();
         const { search } = data;
-        console.log(search.trim());
+        dispatch(handleQueryString(search));
     };
 
     const clearSearchField = () => {
@@ -42,7 +46,7 @@ const SearchUsers = () => {
                 pl: '20px',
                 pr: '10px'
             }}>
-                
+
             <InputBase
                 sx={{ height: 50 }}
                 placeholder="Seach"
