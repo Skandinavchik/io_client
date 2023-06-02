@@ -2,7 +2,7 @@ import { Box, Divider } from "@mui/material";
 import Users from "./users";
 import SearchUsers from "./searchUsers";
 import ChatTabs from "./chatTabs";
-import MessagesContent from "./messagesContent";
+import MainContent from "./mainContent";
 import SendMessage from "./sendMessage";
 
 
@@ -22,7 +22,7 @@ const Chat = () => {
             </Box>
             <Divider sx={{ height: '650px' }} orientation="vertical" />
             <Box sx={{ width: '70%' }}>
-                <MessagesContent />
+                <MainContent />
                 <Divider orientation='horizontal' />
                 <SendMessage />
             </Box>

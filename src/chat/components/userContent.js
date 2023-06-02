@@ -1,14 +1,14 @@
 import { Box } from "@mui/material";
 
 
-const MessagesContent = () => {
+const UserContent = () => {
 
 
     return (
         <Box>
-            Messages
+            User
         </Box>
     );
 };
 
-export default MessagesContent;
+export default UserContent;
