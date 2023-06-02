@@ -47,7 +47,7 @@ const Users = () => {
     return (
         <Box sx={{}}>
             {!usersList.length && usersLoadingStatus === 'idle'
-                ? <div style={{ textAlign: 'center' }}>No Users</div>
+                ? <div style={{ textAlign: 'center' }}>Users not found</div>
                 : usersList}
         </Box>
 
