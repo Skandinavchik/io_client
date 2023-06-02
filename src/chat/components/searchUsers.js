@@ -13,24 +13,24 @@ const SearchUsers = () => {
         defaultValues: {
             search: '',
         },
-        mode: 'onChange',
+        mode: 'onChange'
     });
 
-    const onSearch = async (data, event) => {
+    const onSearch = (data, event) => {
         event.preventDefault();
         const { search } = data;
         dispatch(handleQueryString(search.trim()));
     };
 
     const clearSearchField = () => {
-        resetField('search');
+        dispatch(handleQueryString(resetField('search')));
     };
 
     const renderSearchIcon = isDirty
         ? <IconButton onClick={clearSearchField}>
             <CloseOutlinedIcon color="primary" />
         </IconButton>
-        : <IconButton>
+        : <IconButton disabled>
             <SearchOutlinedIcon color="primary" />
         </IconButton>
 

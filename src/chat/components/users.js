@@ -18,7 +18,9 @@ const Users = () => {
         return 'Error';
     }
 
-    const renderUsers = users.map(item => {
+    const regex = new RegExp(queryString, 'i');
+
+    const renderUsers = users.filter(item => regex.test(item.userName)).map(item => {
         return (
             <Box key={item.userName} sx={{
                 pl: '20px',
@@ -41,7 +43,7 @@ const Users = () => {
 
     return (
         <Box sx={{}}>
-            {users.length ? renderUsers : null }
+            {renderUsers.length ? renderUsers : <div style={{textAlign: 'center'}}>No Users</div>}
         </Box>
     );
 };
