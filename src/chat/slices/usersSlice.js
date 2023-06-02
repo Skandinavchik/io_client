@@ -3,7 +3,7 @@ import ky from "ky";
 
 
 const initialState = {
-    usersLoadingStatus: 'idle',
+    usersLoadingStatus: 'init',
     users: [],
     filteredUsers: [],
     queryString: '',
@@ -22,7 +22,11 @@ const usersSlicer = createSlice({
         handleQueryString: (state, action) => { state.queryString = action.payload },
         findUsers: (state, action) => {
             const regex = new RegExp(action.payload, 'i');
-            state.filteredUsers = state.users.filter(item => regex.test(item.userName));
+            state.filteredUsers = state.users.filter(item => {
+                return action.payload === undefined || action.payload === ''
+                    ? state.users
+                    : regex.test(item.userName);
+            });
         },
     },
 

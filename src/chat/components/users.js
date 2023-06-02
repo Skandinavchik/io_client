@@ -7,7 +7,7 @@ import { useDispatch, useSelector } from 'react-redux';
 
 const Users = () => {
 
-    const { users, filteredUsers, usersLoadingStatus, queryString } = useSelector(state => state.users);
+    const { filteredUsers, usersLoadingStatus, queryString } = useSelector(state => state.users);
     const dispatch = useDispatch();
 
     useEffect(() => {
@@ -17,6 +17,7 @@ const Users = () => {
     useEffect(() => {
         dispatch(findUsers(queryString));
     }, [dispatch, queryString]);
+
 
     const renderUsers = (arr) => {
         return arr.map(item => {
@@ -41,13 +42,15 @@ const Users = () => {
         });
     };
 
-    const usersState = queryString === '' || queryString === undefined ? users : filteredUsers;
-    const usersList = renderUsers(usersState);
+    const usersList = renderUsers(filteredUsers);
 
     return (
         <Box sx={{}}>
-            {usersList.length ? usersList : <div style={{ textAlign: 'center' }}>No Users</div>}
+            {!usersList.length && usersLoadingStatus === 'idle'
+                ? <div style={{ textAlign: 'center' }}>No Users</div>
+                : usersList}
         </Box>
+
     );
 };
 
