@@ -33,7 +33,7 @@ const MainContent = () => {
     const content = renderContent(activeTab);
 
     return (
-        <Box sx={{ height: '600px' }}>
+        <Box sx={{ height: '600px', pl: '20px', pr: '20px' }}>
             {content}
         </Box>
     );

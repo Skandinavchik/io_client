@@ -1,23 +1,21 @@
 import { Box, Avatar } from "@mui/material";
 import { useEffect } from "react";
-import { fetchUsers, findUsers } from '../slices/usersSlice';
+import { fetchUsers } from '../slices/usersSlice';
 import { useDispatch, useSelector } from 'react-redux';
 
 
 
 const Users = () => {
 
-    const { filteredUsers, usersLoadingStatus, queryString } = useSelector(state => state.users);
+    const { users, usersLoadingStatus, queryString } = useSelector(state => state.users);
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(fetchUsers());
-    }, [dispatch]);
-
-    useEffect(() => {
-        dispatch(findUsers(queryString));
+        console.log(queryString);
+        dispatch(fetchUsers(queryString));
     }, [dispatch, queryString]);
 
+    
 
     const renderUsers = (arr) => {
         return arr.map(item => {
@@ -42,7 +40,7 @@ const Users = () => {
         });
     };
 
-    const usersList = renderUsers(filteredUsers);
+    const usersList = renderUsers(users);
 
     return (
         <Box sx={{}}>

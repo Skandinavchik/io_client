@@ -5,14 +5,19 @@ import ky from "ky";
 const initialState = {
     usersLoadingStatus: 'init',
     users: [],
-    filteredUsers: [],
     queryString: '',
 };
 
-const fetchUsers = createAsyncThunk('users/fetchUsers', async () => {
-    return await ky.get('http://localhost:8000/api/v1.0/users', {
-        credentials: 'include',
-    }).json();
+const fetchUsers = createAsyncThunk('users/fetchUsers', async (queryString) => {
+    if (queryString === undefined || queryString === '') {
+        return await ky.get('http://localhost:8000/api/v1.0/users', {
+            credentials: 'include',
+        }).json();
+    } else {
+        return await ky.get(`http://localhost:8000/api/v1.0/users?username=${queryString}`, {
+            credentials: 'include',
+        }).json();
+    }
 });
 
 const usersSlicer = createSlice({
@@ -20,14 +25,6 @@ const usersSlicer = createSlice({
     initialState,
     reducers: {
         handleQueryString: (state, action) => { state.queryString = action.payload },
-        findUsers: (state, action) => {
-            const regex = new RegExp(action.payload, 'i');
-            state.filteredUsers = state.users.filter(item => {
-                return action.payload === undefined || action.payload === ''
-                    ? state.users
-                    : regex.test(item.userName);
-            });
-        },
     },
 
     extraReducers: builder => {
@@ -36,7 +33,6 @@ const usersSlicer = createSlice({
             .addCase(fetchUsers.fulfilled, (state, action) => {
                 state.usersLoadingStatus = 'idle';
                 state.users = action.payload.data.users;
-                state.filteredUsers = action.payload.data.users;
             })
             .addCase(fetchUsers.rejected, state => { state.usersLoadingStatus = 'error' })
             .addDefaultCase(() => { });
@@ -45,6 +41,6 @@ const usersSlicer = createSlice({
 
 const { reducer, actions } = usersSlicer;
 
-export const { handleQueryString, findUsers } = actions;
+export const { handleQueryString } = actions;
 export { fetchUsers };
 export default reducer;
