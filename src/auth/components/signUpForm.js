@@ -46,6 +46,7 @@ const SignUpForm = () => {
         setValue('password', '');
 
         if (result.status === 'success') {
+            localStorage.setItem('id', result.data.user._id);
             navigate('/', 'replace');
         }
     };

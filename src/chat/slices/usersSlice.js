@@ -5,11 +5,12 @@ import ky from "ky";
 const initialState = {
     usersLoadingStatus: 'init',
     users: [],
+    searchResults: undefined,
     queryString: '',
 };
 
-const fetchUsers = createAsyncThunk('users/fetchUsers', async (queryString) => {
-    if (queryString === undefined || queryString === '') {
+const fetchUsers = createAsyncThunk('users/fetchUsers', async (queryString = initialState.queryString) => {
+    if (queryString === '') {
         return await ky.get('http://localhost:8000/api/v1.0/users', {
             credentials: 'include',
         }).json();
@@ -25,6 +26,7 @@ const usersSlicer = createSlice({
     initialState,
     reducers: {
         handleQueryString: (state, action) => { state.queryString = action.payload },
+        handleSearchResults: (state, action) => {state.searchResults = action.payload},
     },
 
     extraReducers: builder => {
@@ -41,6 +43,6 @@ const usersSlicer = createSlice({
 
 const { reducer, actions } = usersSlicer;
 
-export const { handleQueryString } = actions;
+export const { handleQueryString, handleSearchResults } = actions;
 export { fetchUsers };
 export default reducer;

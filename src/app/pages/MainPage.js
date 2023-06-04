@@ -18,6 +18,7 @@ const MainPage = () => {
 
     useEffect(() => {
         if (!checkCookie(document.cookie, 'data')) {
+            localStorage.removeItem('id');
             navigate('/auth', 'replace');
         }
     }, [navigate]);

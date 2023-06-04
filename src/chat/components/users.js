@@ -1,24 +1,19 @@
 import { Box, Avatar } from "@mui/material";
+import { useSelector, useDispatch } from 'react-redux';
+import { handleSearchResults } from "../slices/usersSlice";
 import { useEffect } from "react";
-import { fetchUsers } from '../slices/usersSlice';
-import { useDispatch, useSelector } from 'react-redux';
 
 
 
 const Users = () => {
 
-    const { users, usersLoadingStatus, queryString } = useSelector(state => state.users);
+    const { users, usersLoadingStatus } = useSelector(state => state.users);
     const dispatch = useDispatch();
 
-    useEffect(() => {
-        console.log(queryString);
-        dispatch(fetchUsers(queryString));
-    }, [dispatch, queryString]);
-
-    
+    const id = localStorage.getItem("id");
 
     const renderUsers = (arr) => {
-        return arr.map(item => {
+        return arr.filter(item => item._id !== id).map(item =>  {
             return (
                 <Box key={item.userName} sx={{
                     pl: '20px',
@@ -41,6 +36,10 @@ const Users = () => {
     };
 
     const usersList = renderUsers(users);
+    
+    useEffect(() => {
+        dispatch(handleSearchResults(usersList.length));
+    }, [dispatch, usersList.length]);
 
     return (
         <Box sx={{}}>
