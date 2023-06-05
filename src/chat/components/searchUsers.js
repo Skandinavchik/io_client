@@ -6,6 +6,7 @@ import { useForm } from 'react-hook-form';
 import { useDispatch, useSelector } from "react-redux";
 import { handleQueryString } from "../slices/usersSlice";
 import { fetchUsers } from '../slices/usersSlice';
+import useDebounce from "../../hooks/useDebounce";
 
 const SearchUsers = () => {
 
@@ -18,9 +19,11 @@ const SearchUsers = () => {
         },
     });
 
+    const debounce = useDebounce(queryString, 500);
+
     useEffect(() => {
-        dispatch(fetchUsers(queryString));
-    }, [dispatch, queryString]);
+        dispatch(fetchUsers(debounce));
+    }, [dispatch, debounce]);
 
     const onSearch = (data) => {
         const { search } = data;

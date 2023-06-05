@@ -1,10 +1,12 @@
 import { AppBar, Box, Toolbar, Button } from '@mui/material';
 import { Link } from 'react-router-dom';
-import checkCookie from "../../utils/checkCookie";
+import useCheckCookie from '../../hooks/useCheckCookie';
 import ky from 'ky';
 
 
 const NavBar = () => {
+
+    const cookies = useCheckCookie(document.cookie, 'data');
 
     const logOut = async () => {
         try {
@@ -28,7 +30,7 @@ const NavBar = () => {
                         </Button>
                     </Link>
 
-                    {checkCookie(document.cookie, 'data')
+                    {cookies
                         ? <Button sx={{ color: '#fff' }}
                             onClick={logOut}>
                             Logout

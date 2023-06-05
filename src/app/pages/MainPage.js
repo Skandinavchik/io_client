@@ -1,7 +1,7 @@
 import Chat from '../../chat/components/chat';
 import { useEffect } from 'react';
 import { useNavigate } from "react-router-dom";
-import checkCookie from "../../utils/checkCookie";
+import useCheckCookie from '../../hooks/useCheckCookie';
 
 
 const style = {
@@ -15,13 +15,14 @@ const style = {
 const MainPage = () => {
 
     const navigate = useNavigate();
+    const cookies = useCheckCookie(document.cookie, 'data')
 
     useEffect(() => {
-        if (!checkCookie(document.cookie, 'data')) {
+        if (!cookies) {
             localStorage.removeItem('id');
             navigate('/auth', 'replace');
         }
-    }, [navigate]);
+    }, [navigate, cookies]);
 
     return (
         <main style={style}>
