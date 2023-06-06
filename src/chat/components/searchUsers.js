@@ -19,7 +19,7 @@ const SearchUsers = () => {
         },
     });
 
-    const debounce = useDebounce(queryString, 500);
+    const debounce = useDebounce(queryString, 300);
 
     useEffect(() => {
         dispatch(fetchUsers(debounce));

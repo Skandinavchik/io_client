@@ -1,4 +1,4 @@
-import { Box, Avatar } from "@mui/material";
+import { Box, Avatar, LinearProgress } from "@mui/material";
 import { useSelector, useDispatch } from 'react-redux';
 import { handleSearchResults } from "../slices/usersSlice";
 import { useEffect } from "react";
@@ -13,7 +13,7 @@ const Users = () => {
     const id = localStorage.getItem("id");
 
     const renderUsers = (arr) => {
-        return arr.filter(item => item._id !== id).map(item =>  {
+        return arr.filter(item => item._id !== id).map(item => {
             return (
                 <Box key={item.userName} sx={{
                     pl: '20px',
@@ -36,7 +36,7 @@ const Users = () => {
     };
 
     const usersList = renderUsers(users);
-    
+
     useEffect(() => {
         dispatch(handleSearchResults(usersList.length));
     }, [dispatch, usersList.length]);
@@ -45,7 +45,7 @@ const Users = () => {
         <Box sx={{}}>
             {!usersList.length && usersLoadingStatus === 'idle'
                 ? <div style={{ textAlign: 'center' }}>Users not found</div>
-                : usersList}
+                : usersLoadingStatus === 'loading' ? <LinearProgress /> : usersList}
         </Box>
 
     );
