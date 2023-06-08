@@ -20,17 +20,21 @@ const SearchUsers = () => {
     });
 
     const debounce = useDebounce(queryString, 300);
-
+    
     useEffect(() => {
-        dispatch(fetchUsers(debounce));
+        if (debounce !== '') {
+            dispatch(fetchUsers(debounce));
+        }
     }, [dispatch, debounce]);
 
     const onSearch = (data) => {
         const { search } = data;
 
-        if (searchResults > 0 || search.length < queryString.length) {
-            dispatch(handleQueryString(search.trim()));
-        }
+        dispatch(handleQueryString(search.trim()));
+
+        // if (searchResults > 0 || search.length < queryString.length) {
+        //     dispatch(handleQueryString(search.trim()));
+        // }
     };
 
     const clearSearchField = () => {

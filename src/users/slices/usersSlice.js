@@ -10,15 +10,9 @@ const initialState = {
 };
 
 const fetchUsers = createAsyncThunk('users/fetchUsers', async (queryString = initialState.queryString) => {
-    if (queryString === '') {
-        return await ky.get('http://localhost:8000/api/v1.0/users', {
-            credentials: 'include',
-        }).json();
-    } else {
-        return await ky.get(`http://localhost:8000/api/v1.0/users?username=${queryString}`, {
-            credentials: 'include',
-        }).json();
-    }
+    return await ky.get(`http://localhost:8000/api/v1.0/users?username=${queryString}`, {
+        credentials: 'include',
+    }).json();
 });
 
 const usersSlicer = createSlice({
@@ -26,7 +20,7 @@ const usersSlicer = createSlice({
     initialState,
     reducers: {
         handleQueryString: (state, action) => { state.queryString = action.payload },
-        handleSearchResults: (state, action) => {state.searchResults = action.payload},
+        handleSearchResults: (state, action) => { state.searchResults = action.payload },
     },
 
     extraReducers: builder => {

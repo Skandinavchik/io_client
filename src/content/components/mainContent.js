@@ -1,5 +1,5 @@
 import { Box } from "@mui/material";
-import UserContent from "./userContent";
+import UserContent from '../../users/components/userContent';
 import MessagesContent from "./messagesContent";
 import SettingsContent from "./settingsContent";
 import { useSelector } from "react-redux";
