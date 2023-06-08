@@ -3,44 +3,31 @@ import SearchOutlinedIcon from '@mui/icons-material/SearchOutlined';
 import CloseOutlinedIcon from '@mui/icons-material/CloseOutlined';
 import { useEffect } from "react";
 import { useForm } from 'react-hook-form';
-import { useDispatch, useSelector } from "react-redux";
-import { handleQueryString } from "../slices/usersSlice";
-import { fetchUsers } from '../slices/usersSlice';
-import useDebounce from "../../hooks/useDebounce";
+import { useDispatch } from "react-redux";
+import { fetchConversations } from "../slices/conversationsSlice";
 
-const SearchUsers = () => {
+const Search = () => {
 
-    const { searchResults, queryString } = useSelector(state => state.users);
     const dispatch = useDispatch();
 
-    const { register, handleSubmit, setValue, getValues, formState: { isDirty } } = useForm({
+    const { register, handleSubmit, setValue, formState: { isDirty } } = useForm({
         defaultValues: {
             search: '',
         },
     });
 
-    const debounce = useDebounce(queryString, 300);
-    
+    const userId = localStorage.getItem('id');
+
     useEffect(() => {
-        if (debounce !== '') {
-            dispatch(fetchUsers(debounce));
-        }
-    }, [dispatch, debounce]);
+        dispatch(fetchConversations(userId));
+    }, [dispatch, userId]);
 
     const onSearch = (data) => {
-        const { search } = data;
 
-        dispatch(handleQueryString(search.trim()));
-
-        // if (searchResults > 0 || search.length < queryString.length) {
-        //     dispatch(handleQueryString(search.trim()));
-        // }
     };
 
     const clearSearchField = () => {
         setValue('search', '');
-        const values = getValues();
-        dispatch(handleQueryString(values.search));
     };
 
     const renderSearchIcon = isDirty
@@ -76,4 +63,4 @@ const SearchUsers = () => {
     );
 };
 
-export default SearchUsers;
+export default Search;

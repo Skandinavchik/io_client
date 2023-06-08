@@ -27,7 +27,7 @@ const conversationsSlicer = createSlice({
             .addCase(fetchConversations.pending, state => { state.conversationsLoadingStatus = 'loading' })
             .addCase(fetchConversations.fulfilled, (state, action) => {
                 state.conversationsLoadingStatus = 'idle';
-                state.conversations = action.payload.data.users;
+                state.conversations = action.payload;
             })
             .addCase(fetchConversations.rejected, state => { state.conversationsLoadingStatus = 'error' })
             .addDefaultCase(() => { });

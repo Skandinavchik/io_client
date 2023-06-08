@@ -1,10 +1,9 @@
 import { Box, Divider } from "@mui/material";
-import UsersList from '../../users/components/usersList';
-// import Conversations from '../../users/components/conversation';
-import SearchUsers from "../../users/components/searchUsers";
+import Search from "../../users/components/search";
 import ChatTabs from "./chatTabs";
 import MainContent from '../../content/components/mainContent';
 import SendMessage from "./sendMessage";
+import ConversationsList from "../../users/components/conversationsList";
 
 
 const Chat = () => {
@@ -14,10 +13,9 @@ const Chat = () => {
         <Box sx={{ display: 'flex', width: 800, boxShadow: 20, m: 5 }}>
             <Box sx={{ width: '30%' }}>
                 <Box sx={{ height: '600px', borderBottom: 'none', borderRadius: 0 }}>
-                    <SearchUsers />
+                    <Search />
                     <Divider orientation='horizontal' />
-                    {/* <Conversations /> */}
-                    <UsersList />
+                    <ConversationsList />
                 </Box>
                 <Divider orientation='horizontal' />
                 <ChatTabs />
